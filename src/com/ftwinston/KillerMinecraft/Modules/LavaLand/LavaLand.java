@@ -1,4 +1,4 @@
-package com.ftwinston.Killer.LavaLand;
+package com.ftwinston.KillerMinecraft.Modules.LavaLand;
 
 import java.util.Random;
 
@@ -10,29 +10,23 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
 
-import com.ftwinston.Killer.Option;
-import com.ftwinston.Killer.WorldConfig;
+import com.ftwinston.KillerMinecraft.Option;
+import com.ftwinston.KillerMinecraft.WorldConfig;
+import com.ftwinston.KillerMinecraft.WorldGenerator;
+import com.ftwinston.KillerMinecraft.Configuration.ToggleOption;
 
-public class LavaLand extends com.ftwinston.Killer.WorldOption
+public class LavaLand extends WorldGenerator
 {
-	public static final int lavaSeas = 0, extraLavaOnLand = 1;
+	ToggleOption lavaSeas, extraLavaOnLand;
 	
 	@Override
 	public Option[] setupOptions()
 	{
-		Option[] options = {
-			new Option("Replace sea with lava", true),
-			new Option("Add extra lava on land", true),
-		};
+		lavaSeas = new ToggleOption("Replace sea with lava", true);
+		extraLavaOnLand = new ToggleOption("Add extra lava on land", true);
 		
-		return options;
-	}
-	
-	@Override
-	public void toggleOption(int num)
-	{
-		super.toggleOption(num);
-		Option.ensureAtLeastOneEnabled(getOptions(), num, lavaSeas, extraLavaOnLand);
+		ToggleOption.ensureAtLeastOneEnabled(lavaSeas, extraLavaOnLand);
+		return new Option[] { lavaSeas, extraLavaOnLand };
 	}
 	
 	@Override
@@ -40,10 +34,10 @@ public class LavaLand extends com.ftwinston.Killer.WorldOption
 	{
 		if ( world.getEnvironment() == Environment.NORMAL )
 		{
-			if ( getOption(lavaSeas).isEnabled() )
+			if ( lavaSeas.isEnabled() )
 				world.getExtraPopulators().add(new LavaSeaPopulator());
 			
-			if ( getOption(extraLavaOnLand).isEnabled() )
+			if ( extraLavaOnLand.isEnabled() )
 				world.getExtraPopulators().add(new ExtraLavaPopulator());
 		}
 			

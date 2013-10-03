@@ -1,4 +1,4 @@
 LavaLand
 ========
 
-A world option for Killer Minecraft
+A world generator for Killer Minecraft
