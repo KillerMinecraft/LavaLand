@@ -8,6 +8,10 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.generator.BlockPopulator;
 
 import com.ftwinston.KillerMinecraft.Option;
@@ -43,6 +47,13 @@ public class LavaLand extends WorldGenerator
 			
 		createWorld(world, runWhenDone);
 	}
+	
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled=true)
+    public void onEvent(BlockIgniteEvent event)
+    {
+    	if (event.getCause() == IgniteCause.LAVA)
+    		event.setCancelled(true);
+    }
 	
 	public class LavaSeaPopulator extends BlockPopulator
 	{
