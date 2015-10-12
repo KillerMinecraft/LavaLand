@@ -1,6 +1,6 @@
-name: Lava Land
+name: Lava_Land
 main: com.ftwinston.KillerMinecraft.Modules.LavaLand.Plugin
-depend: [Killer Minecraft]
+depend: [Killer_Minecraft]
 version: 1
 load: STARTUP
 description: A world generator for Killer Minecraft
