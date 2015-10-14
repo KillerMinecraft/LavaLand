@@ -11,7 +11,7 @@ public class Plugin extends WorldGeneratorPlugin
 	public String[] getDescriptionText() { return new String[] {"Add more lava to an", "otherwise-normal world"}; }
 	
 	@Override
-	public Material getMenuIcon() { return Material.LAVA; }
+	public Material getMenuIcon() { return Material.LAVA_BUCKET; }
 	
 	@Override
 	public WorldGenerator createInstance()
