@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
+import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.generator.BlockPopulator;
 
 import com.ftwinston.KillerMinecraft.Option;
@@ -36,16 +37,20 @@ public class LavaLand extends WorldGenerator
 	@Override
 	public void setupWorld(WorldConfig world, Runnable runWhenDone)
 	{
-		if ( world.getEnvironment() == Environment.NORMAL )
+		createWorld(world, runWhenDone);
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+	public void onWorldInit(WorldInitEvent event)
+	{
+		if (event.getWorld().getEnvironment() == Environment.NORMAL)
 		{
 			if ( lavaSeas.isEnabled() )
-				world.getExtraPopulators().add(new LavaSeaPopulator());
+				event.getWorld().getPopulators().add(new LavaSeaPopulator());
 			
 			if ( extraLavaOnLand.isEnabled() )
-				world.getExtraPopulators().add(new ExtraLavaPopulator());
+				event.getWorld().getPopulators().add(new ExtraLavaPopulator());
 		}
-			
-		createWorld(world, runWhenDone);
 	}
 	
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled=true)
